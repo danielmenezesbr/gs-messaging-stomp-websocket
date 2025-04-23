@@ -16,13 +16,15 @@ kubectl create namespace prod
 
 ```bash
 cd helm
-helm upgrade --install my-app-devops ./charts/my-app -n devops -f values/devops.yaml
-helm upgrade --install my-app-demo ./charts/my-app -n demo -f values/demo.yaml
-helm upgrade --install my-app-prod ./charts/my-app -n prod -f values/prod.yaml
+helm upgrade --install websocketpoc-app-devops ./charts/websocketpoc-app -n devops -f values/devops.yaml
+helm upgrade --install websocketpoc-app-demo ./charts/websocketpoc-app -n demo -f values/demo.yaml
+helm upgrade --install websocketpoc-app-prod ./charts/websocketpoc-app -n prod -f values/prod.yaml
 ```
 
 # teste (visualizar os logs)
 
 ```bash
-kubectl logs -f -l app=my-app -n devops
+kubectl logs -f -l app=websocketpoc-app -n devops
 ```
+
+kubectl port-forward svc/websocketpoc-app-devops 8080:8080 -n devops
