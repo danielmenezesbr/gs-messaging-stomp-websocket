@@ -1,0 +1,30 @@
+server:
+  port: 8080
+  tomcat:
+    mbeanregistry:
+      enabled: true
+
+spring:
+  application:
+    name: websocketpoc
+    version: v2
+
+management:
+  health:
+    elasticsearch: #even though we are not using spring data for elasticsearch, we need to disable the actuator
+      enabled: false
+  endpoints:
+    web:
+      base-path: /api/actuator
+      exposure:
+        include: health,prometheus
+  endpoint:
+    loggers:
+      enabled: false
+    health:
+      show-details: when_authorized
+      roles: SYSADMIN
+  metrics:
+    tags:
+      application: ${spring.application.name}
+      region: ${AWS_REGION:${cloud.aws.region.static}}

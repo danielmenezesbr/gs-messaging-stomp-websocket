@@ -1,10 +1,12 @@
+const port = window.location.port || '80';
 const stompClient = new StompJs.Client({
-    brokerURL: 'ws://localhost:8080/ws'
+    brokerURL: `${window.location.protocol === 'https:' ? 'wss' : 'ws'}://${window.location.hostname}:${port}/ws`
 });
 
 stompClient.onConnect = (frame) => {
     setConnected(true);
-    console.log('Connected: ' + frame);
+    const now = new Date();
+    console.log(`Connected: ${frame} at ${now.toLocaleString()}`);
     stompClient.subscribe('/topic/greetings', (greeting) => {
         showGreeting(JSON.parse(greeting.body).content);
     });
