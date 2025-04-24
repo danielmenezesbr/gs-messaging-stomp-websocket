@@ -28,3 +28,32 @@ kubectl logs -f -l app=websocketpoc-app -n devops
 ```
 
 kubectl port-forward svc/websocketpoc-app-devops 8080:8080 -n devops
+
+
+# prometheus
+
+```
+cd helm/prometheus
+````
+
+```
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+helm repo update
+```
+
+Instalação básica:
+
+```
+helm install prometheus prometheus-community/prometheus \
+  --version 25.26.0 \
+  --namespace prometheus --create-namespace
+```
+
+
+Instalação com values.yaml:
+```
+helm install prometheus prometheus-community/prometheus \
+  --version 25.26.0 \
+  --namespace prometheus --create-namespace \
+  -f values.yaml
+```
